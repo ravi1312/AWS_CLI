@@ -1,0 +1,8 @@
+To upload and encrypt a file to S3 bucket using your KMS key:
+
+aws s3 cp file.txt s3://kms-test11 --sse aws:kms --sse-kms-key-id 4dabac80-8a9b-4ada-b3af-fc0faaaac5
+
+Upload and encrypt a file using default KMS Key for S3 in the region:
+
+aws s3 cp file.txt s3://kms-test11 --sse aws:kms
+

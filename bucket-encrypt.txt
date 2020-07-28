@@ -1,0 +1,45 @@
+
+Encrypt objects by default with bucket policy:
+https://docs.aws.amazon.com/cli/latest/reference/s3api/put-bucket-encryption.html
+
+
+
+First Upgrade/reinstall the CLI if you need to:
+sudo pip install awscli --upgrade
+
+
+
+Paste this text on the policy file that we will use to configure the default encryption.Name it policy.json. Change the key ID to your Key ID
+
+{
+  "Rules": [
+    {
+      "ApplyServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "aws:kms",
+        "KMSMasterKeyID": "arn:aws:kms:us-east-1:378411113135:key/e1f2e563-0aae-4aab-8551-d162555595ff7"
+      }
+    }
+
+  ]
+}
+
+
+Make a similar file with a different name like policy-sse.json and change the encryption algorithm to AES256:
+
+{
+  "Rules": [
+    {
+      "ApplyServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+      }
+    }
+
+  ]
+}
+
+
+
+Command to add the encryption policy to the bucket:
+
+aws s3api put-bucket-encryption --bucket my-bucket-s3-encryption --server-side-encryption-configuration file://policy.json
+

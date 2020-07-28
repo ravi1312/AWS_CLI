@@ -1,0 +1,29 @@
+Encrypt a file using SSE-C:
+https://docs.aws.amazon.com/cli/latest/reference/s3/cp.html
+
+According to the documentation requirements for SSE-C are as follows:
+
+--sse-c (string) Specifies server-side encryption using customer provided keys of the the object in S3. AES256 is the only valid value. If the parameter is specified but no value is provided, AES256 is used. If you provide this value, --sse-c-key must be specified as well.
+--sse-c-key (string) The customer-provided encryption key to use to server-side encrypt the object in S3. If you provide this value, --sse-c must be specified as well. The key provided should not be base64 encoded.
+
+
+So,generate some AES keys using openssl. You can use my keys if you don't want to downloadopenssl:
+
+$ openssl enc -aes-128-cbc -k secret -P
+
+You get something like this in return when you enter the command above:
+
+salt=ABFC4B8ECAAC3095
+key=FF71B8ECCF197714995829EE35B722F6
+iv =72C262268CF8F6B7CB0E1F6871F9E08D
+
+Save the key to a file or somewhere safe.
+
+
+Command to upload and encrypt using SSE-C :
+aws s3 cp abcd.txt s3://kms-test11 --sse-c  --sse-c-key 72C262268CF8F6B7CB0E1F6871F9E08D
+
+
+When you download the file with sse-c, you get an error if you try to download  without providing the key. The command to download the file from s3 is:
+aws s3 cp s3://kms-test11/abcd.txt . --sse-c  --sse-c-key 72C262268CF8F6B7CB0E1F6871F9E08D
+

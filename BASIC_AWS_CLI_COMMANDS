@@ -1,0 +1,51 @@
+AWS_CLI_COOMANDS:
+
+#S3_BASIC_COMMANDS
+>> aws s3 ls
+>> aws mb s3://test-bucket
+>> aws s3 cp file.txt s3://test-bucket
+>> aws s3 ls s3://test-bucket
+>> aws s3 cp s3://test-bucket/file.txt .
+>> aws s3 cp file.txt s3://test-bucket --sse
+>> aws s3 cp file.txt s3://test-bucket --storage-class STANDARD_IA
+>> aws s3 sync . s3://test-bucket --exclude '*.py'	
+>> aws s3 cp file.txt s3://test-bucket --sse aws:kms -sse-kms-key-id e8d62dba-49c9-49a5-be99-05818f1555f9
+>> aws se cp file.txt s3://test-bucket --sse-c --sse-c-key 655F14882869A217BC50C024E645558A
+
+
+#EC2_BASIC_COMMANDS
+>> aws ec2 describe-instances 
+>> aws ec2 describe-instances --ouput table
+>> aws ec2 run-instances --image-id ami-****** --instance-type id-***** --key-name *****
+>> aws ec2 stop-instances --instance-id id-*****
+>> aws ec2 terminate-instances --instance-id id-*****
+>> aws ec2 run-instances --image-id ami-****** --instance-type id-***** --key-name ***** --user-data file://file.txt 
+>> aws ec2 create-vpc --cidr 172.0.0.0/16
+>> aws ec2 create-subnet --vpc-id vpc-****** --cidr 10.0.0.0/24
+>> aws ec2 create-route-table --vpc-id vpc-******
+>> aws ec2 associate-route-table --route-table-id rtb-**** subnet-id subnet-******
+>> aws ec2 create-security-groups --vpc-id vpc-***** --group-name "******" --description "*********"
+>> aws ec2 delete-security-groups --group-name "******"
+>> aws ec2 seccurity-group-ingress --group-id sg-******* --protocol http --port 80 --cidr 0.0.0.0/0
+>> aws ec2 create-tags --resource ******* --tags Key=Name,Value=testing
+>> aws ec2 run-instances --image-id ami-0ac80df6eff0e70b5 --count 1 --instance-type t2.micro --key-name testing --subnet-id subnet-0543b186f813b4ffe --security-group-id sg-05009770182f938f2 --associate-public-ip-adress
+>> aws ec2 create-volume --availability-zone us-east** --size 10
+>> aws ec2 attach-volume --volume-id vol-***** --instance-id i-***** --device sdg
+>> aws ec2 detach-volume --volume-id vol-***** --instance-id i-***** --device sdg
+>> aws ec2 delete-volume --volume-id vol-***
+>> aws ec2 create-key-pair --key-name ******
+>> aws ec2 allocate-address
+>> aws ec2 associate-address --instance-id i-****** --public-ip ****** or --allocation-id *****
+>> aws ec2 disassociate-address --instance-id i-****** --public-ip ****** or --allocation-id *****
+>> aws ec2 create-image --instance-id i-*** --name "*****" --description "*****"
+
+
+#IAM_BASIC_COMMANDS
+>> aws iam create-user --user-name myCLIuser
+>> aws iam create-role --role-name cli-lambda --assume-role-policy-document file://policy.json
+>> aws iam delete-user --user-name myCLIuser
+>> aws iam create-access-key --username myCLIuser
+>> aws iam list-policies
+>> aws iam attach-user-policy --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess --user-name myCLIuser
+>> aws s3 --profile myCLIuser
+

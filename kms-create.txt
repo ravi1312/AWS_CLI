@@ -1,0 +1,13 @@
+To  create a  kms key:
+$ aws kms create-key -description "my kms key" 
+
+List all the keys:
+$aws kms aws kms list-keys
+
+This will not help us identify the correct key. Create an Alias for the key we created:
+aws kms create-alias --alias-name alias/example-alias --target-key-id 1234abcd-12ab-34cd-56ef-1234567890ab
+
+
+Then let's list the alias of the keys as well.
+$ aws kms list-aliases
+
